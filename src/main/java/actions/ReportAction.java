@@ -20,6 +20,7 @@ import services.ReportService;
  */
 public class ReportAction extends ActionBase {
 
+    private static final ActionBase Intenger = null;
     private ReportService service;
 
     /**
@@ -112,7 +113,7 @@ public class ReportAction extends ActionBase {
                     getRequestParam(AttributeConst.REP_TITLE),
                     getRequestParam(AttributeConst.REP_CONTENT),
                     null,
-                    null);
+                    null, null);
 
             //日報情報登録
             List<String> errors = service.create(rv);
@@ -227,8 +228,55 @@ public class ReportAction extends ActionBase {
                 //一覧画面にリダイレクト
                 redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
 
-            }
+            }}
         }
-    }
 
-}
+    /**
+     * いいね数を追加する
+     * @throws ServletException
+     * @throws IOException
+     */
+
+        public void iine() throws ServletException, IOException {
+
+            //idを条件に日報データを取得する
+            ReportView rv = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+
+
+
+
+          //入力された日報内容を設定する
+            int i  = toNumber(getRequestParam(AttributeConst.REP_IINE_COUNT));
+
+            i = i+1 ;
+            rv.setIine_count(i);
+
+                //日報データを更新する
+                List<String> errors = service.update(rv);
+
+                if (errors.size() > 0) {
+                    //更新中にエラーが発生した場合
+
+                    putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+                    putRequestScope(AttributeConst.REPORT, rv); //入力された日報情報
+                    putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
+
+                    //編集画面を再表示
+                    forward(ForwardConst.FW_REP_EDIT);
+                } else {
+                    //更新中にエラーがなかった場合
+
+
+            //セッションに登録完了のフラッシュメッセージを設定
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_IINE.getMessage());
+
+            //一覧画面にリダイレクト
+            redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
+        }
+
+
+
+
+   }}
+
+

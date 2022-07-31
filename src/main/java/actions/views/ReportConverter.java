@@ -23,8 +23,8 @@ public class ReportConverter {
                 rv.getReportDate(),
                 rv.getTitle(),
                 rv.getContent(),
-                rv.getCreatedAt(),
-                rv.getUpdatedAt());
+                rv.getUpdatedAt(),
+                null, rv.getIine_count()); // ←この部分を追加
     }
 
     /**
@@ -45,7 +45,8 @@ public class ReportConverter {
                 r.getTitle(),
                 r.getContent(),
                 r.getCreatedAt(),
-                r.getUpdatedAt());
+                r.getUpdatedAt(),
+                r.getIine_count()); // ←この部分を追加
     }
 
     /**
@@ -76,6 +77,7 @@ public class ReportConverter {
         r.setContent(rv.getContent());
         r.setCreatedAt(rv.getCreatedAt());
         r.setUpdatedAt(rv.getUpdatedAt());
+        r.setIine_count(rv.getIine_count()); // ←この部分を追加
 
     }
 

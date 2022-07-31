@@ -52,4 +52,22 @@ public class ReportView {
      * 更新日時
      */
     private LocalDateTime updatedAt;
-}
+
+    /**
+     * いいね数
+     */
+    private Integer iine_count;
+
+    public int setIine_count(int i) {
+        // TODO 自動生成されたメソッド・スタブ
+        return iine_count = i;
+    }
+
+
+    }
+
+
+
+
+
+
